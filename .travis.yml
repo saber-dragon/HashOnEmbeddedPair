@@ -1,24 +1,28 @@
 sudo: false
 language: cpp
 
-matrix:
-  include:
-    # works on 
-    - os: linux
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-          packages:
-            - g++-5
-      env:
-        - MATRIX_EVAL="CC=gcc-5 && CXX=g++5"
-        - CXX_FLAGS=-std=c++11
-before_install:
-    - eval "${MATRIX_EVAL}"
+addons:
+  apt:
+    sources:
+    - ubuntu-toolchain-r-test
+    - llvm-toolchain-precise-4.0
+    packages:
+    - gcc-5.4
+    - g++-5.4
+    - clang-4.0
+
+os:
+  - linux
+compiler:
+  - gcc
+  - clang
 
 script:
   - mkdir build
   - cmake ..
   - make
   - make test
+
+dist: xenial
+notifications:
+  email: false
