@@ -18,7 +18,7 @@ compiler:
   - clang
 
 script:
-  - mkdir build
+  - mkdir build && cd build
   - cmake ..
   - make
   - make test
